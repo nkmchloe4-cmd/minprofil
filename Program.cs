@@ -40,7 +40,12 @@ app.MapPost("/auth/login", (HttpContext http, AppDatabase db, SessionStore sessi
     }
 
     var token = sessions.Create(user.Id);
-    http.Response.Cookies.Append(CurrentUser.CookieName, token);
+    http.Response.Cookies.Append(CurrentUser.CookieName, token, new CookieOptions
+    {
+        HttpOnly = true,
+        SameSite = SameSiteMode.Strict,
+        Secure = true
+    });
 
     return Results.Redirect("/profile");
 }).DisableAntiforgery();
