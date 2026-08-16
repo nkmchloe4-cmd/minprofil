@@ -22,7 +22,7 @@ else
     <p>Så här visas din presentation för andra medlemmar:</p>
 
     <div class="border rounded p-3 mb-4 bg-light">
-        @((MarkupString)user.Presentation)
+        @user.Presentation
     </div>
 
     <form method="post" action="/profile/save" style="max-width:40rem">
