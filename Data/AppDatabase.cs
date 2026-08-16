@@ -73,8 +73,10 @@ public class AppDatabase
         using var connection = Open();
         var command = connection.CreateCommand();
         command.CommandText =
-            $"SELECT Id, Username, Password, DisplayName, Presentation, IsAdmin " +
-            $"FROM Users WHERE Username = '{username}' AND Password = '{password}'";
+           "SELECT Id, Username, Password, DisplayName, Presentation, IsAdmin " +
+           "FROM Users WHERE Username = @username AND Password = @password";
+        command.Parameters.AddWithValue("@username", username);
+        command.Parameters.AddWithValue("@password", password);
 
         using var reader = command.ExecuteReader();
         if (!reader.Read())
